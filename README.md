@@ -2,6 +2,8 @@
 
 Forward OS X file system events to a VM, designed for use with Dinghy.
 
+This is an early proof-of-concept implementation. If it works well in practice, it will be integrated into Dinghy.
+
 # Installation
 
 This is a ruby gem, but isn't published yet. To install, clone the repo and run:
