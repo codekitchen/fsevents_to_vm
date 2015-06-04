@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rb-fsevent", "~> 0.9.5"
   spec.add_dependency "thor", "~> 0.19.1"
+  spec.add_dependency "net-ssh", "~> 2.9.2"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
