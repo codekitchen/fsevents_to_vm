@@ -21,7 +21,7 @@ module FseventsToVm
 
     def build_event(filepath)
       mtime = Event.format_time(File.stat(filepath).mtime)
-      Event.new(filepath, mtime)
+      Event.new(filepath, mtime, Time.now)
     rescue Errno::ENOENT
       # TODO: handling delete events is tricky due to race conditions with rapid
       # delete/create.
