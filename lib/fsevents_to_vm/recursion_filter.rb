@@ -5,6 +5,7 @@ module FseventsToVm
     end
 
     def ignore?(event)
+      purge_old_events!
       if @recent_events[event.path] == event.mtime
         true
       else
