@@ -13,7 +13,7 @@ module FseventsToVm
     end
 
     def event(event)
-      @ssh.exec!("touch -m -t #{event.mtime} #{Shellwords.escape event.path}")
+      @ssh.exec!("touch -m -c -t #{event.mtime} #{Shellwords.escape event.path}")
     end
   end
 end
