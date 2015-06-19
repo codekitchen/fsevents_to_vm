@@ -1,7 +1,7 @@
 module FseventsToVm
   class PathFilter
     def initialize
-      @filter = %r{#{ENV['HOME']}/(Library|\.)}
+      @filter = %r{#{ENV['HOME']}/(Library|\.)|/\.(git|hg|svn)}
     end
 
     def ignore?(event)
