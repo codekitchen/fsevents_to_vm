@@ -2,15 +2,17 @@
 
 Forward OS X file system events to a VM, designed for use with Dinghy.
 
-This is an early proof-of-concept implementation. If it works well in practice, it will be integrated into Dinghy.
-
 # Installation
 
-This is a ruby gem, but isn't published yet. To install, clone the repo and run:
+Normally you won't install this manually, Dinghy will do it for you.
 
-    $ rake install
+If you want to manually install:
+
+    $ gem install fsevents_to_vm
 
 ## Usage
+
+Dinghy will start fsevents_to_vm automatically. If you would like to run in manually:
 
 The Dinghy VM must be running. Then in a terminal run:
 
