@@ -3,7 +3,7 @@ require 'fsevents_to_vm'
 
 module FseventsToVm
   class Cli < Thor
-    option :debug, type: :boolean, default: true
+    option :debug, type: :boolean, default: false
     desc "start PATH",
       "Watch PATH and forward filesystem touch events to the Dinghy VM."
     def start(listen_dir = ENV['HOME'])

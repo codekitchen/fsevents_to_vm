@@ -1,3 +1,4 @@
 require 'fsevents_to_vm/cli'
 
+$0 = 'fsevents_to_vm'
 FseventsToVm::Cli.start(ARGV)
