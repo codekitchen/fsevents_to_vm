@@ -4,12 +4,8 @@ require 'tempfile'
 
 module FseventsToVm
   class SshEmit
-    def initialize
-      @ssh_config = Tempfile.new('fsevents-ssh-config')
-      @ssh_config.write(`cd /usr/local/var/dinghy/vagrant && vagrant ssh-config --host dinghy`)
-      raise("Could not read Vagrant VM ssh config") unless $?.success?
-      @ssh_config.flush
-      @ssh = Net::SSH.start('dinghy', 'docker', config: @ssh_config.path)
+    def initialize(ssh_config_file)
+      @ssh = Net::SSH.start('dinghy', 'docker', config: ssh_config_file.path)
     end
 
     def event(event)

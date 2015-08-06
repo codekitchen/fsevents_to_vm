@@ -4,6 +4,7 @@ require 'fsevents_to_vm'
 module FseventsToVm
   class Cli < Thor
     option :debug, type: :boolean, default: false
+    option :ssh_config_file, type: :string
     desc "start PATH",
       "Watch PATH and forward filesystem touch events to the Dinghy VM."
     def start(listen_dir = ENV['HOME'])
@@ -12,7 +13,8 @@ module FseventsToVm
       watcher = FseventsToVm::Watch.new(listen_dir)
       path_filter = FseventsToVm::PathFilter.new
       recursion_filter = FseventsToVm::RecursionFilter.new
-      forwarder = FseventsToVm::SshEmit.new
+      ssh_config = FseventsToVm::SshConfig.fetch(options[:ssh_config_file])
+      forwarder = FseventsToVm::SshEmit.new(ssh_config)
 
       if debug
         puts "Watching #{listen_dir} and forwarding events to Dinghy VM..."
