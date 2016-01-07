@@ -4,8 +4,9 @@ require 'tempfile'
 
 module FseventsToVm
   class SshEmit
-    def initialize(ssh_config_file)
-      @config_path = ssh_config_file.path
+    def initialize(identity_file, ip)
+      @identity_file = identity_file
+      @ip = ip
     end
 
     def event(event)
@@ -19,7 +20,7 @@ module FseventsToVm
     protected
 
     def ssh
-      @ssh ||= Net::SSH.start('dinghy', 'docker', config: @config_path)
+      @ssh ||= Net::SSH.start(@ip, 'docker', config: false, keys: [@identity_file])
     end
 
     def disconnect!
