@@ -6,7 +6,7 @@ module FseventsToVm
     option :debug, type: :boolean, default: false
     option :ssh_identity_file, type: :string
     option :ssh_ip, type: :string
-    option :ssh_username, type: string, default: 'docker'
+    option :ssh_username, type: :string, default: 'docker'
     desc "start PATH",
       "Watch PATH and forward filesystem touch events to the Dinghy VM."
     def start(listen_dir = ENV['HOME'])
