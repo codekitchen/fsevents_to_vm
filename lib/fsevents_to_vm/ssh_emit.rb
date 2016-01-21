@@ -21,7 +21,10 @@ module FseventsToVm
     protected
 
     def ssh
-      @ssh ||= Net::SSH.start(@ip, @username, config: false, keys: [@identity_file])
+      @ssh ||= Net::SSH.start(@ip, @username,
+        config: false,
+        keys: [@identity_file],
+        paranoid: false)
     end
 
     def disconnect!
