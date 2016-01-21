@@ -34,7 +34,7 @@ First, make sure that `fsevents` isn't already running due to `dinghy start`, ki
 
 Then run manually:
 
-    be ruby exe/fsevents_to_vm start --debug --ssh-identity-file ~/.docker/machine/machines/dinghy/id_rsa --ssh-ip $(dinghy ip) ~
+    bundle exec ruby exe/fsevents_to_vm start --debug --ssh-identity-file ~/.docker/machine/machines/dinghy/id_rsa --ssh-ip $(dinghy ip) ~
 
 You can use inotifywait in the VM to watch for events:
 
