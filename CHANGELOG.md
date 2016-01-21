@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.1.1 - 2016-01-21
+
+### Added
+- Allow specifying the ssh username
+
 ## 1.1.0 - 2016-01-07
 
 ### Changed
