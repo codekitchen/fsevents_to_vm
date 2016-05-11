@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.1.2 - 2016-05-11
+
+### Changed
+- Add SSH config option to ignore ssh-agent provided keys and only use our key
+
 ## 1.1.1 - 2016-01-21
 
 ### Added
