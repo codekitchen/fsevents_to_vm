@@ -24,6 +24,7 @@ module FseventsToVm
       @ssh ||= Net::SSH.start(@ip, @username,
         config: false,
         keys: [@identity_file],
+        keys_only: true,
         paranoid: false)
     end
 
