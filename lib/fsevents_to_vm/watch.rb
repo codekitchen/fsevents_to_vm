@@ -26,6 +26,9 @@ module FseventsToVm
       # TODO: handling delete events is tricky due to race conditions with rapid
       # delete/create.
       nil
+    rescue Errno::ENOTDIR
+      # dir structure changed
+      nil
     end
   end
 end
