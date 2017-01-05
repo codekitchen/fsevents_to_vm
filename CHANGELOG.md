@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.1.3 - 2017-01-05
+
+### Changed
+- Catch ENOTDIR errors on stat
+
 ## 1.1.2 - 2016-05-11
 
 ### Changed
