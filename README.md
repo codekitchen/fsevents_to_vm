@@ -16,11 +16,11 @@ Dinghy will start fsevents_to_vm automatically. If you would like to run in manu
 
 The Dinghy VM must be running. Then in a terminal run:
 
-    $ fsevents_to_vm start
+    $ fsevents_to_vm start --ssh-identity-file ~/.docker/machine/machines/dinghy/id_rsa --ssh-ip $(dinghy ip)
 
 You can specify a specific directory to watch. This directory must be already mounted in the VM over NFS. By default, this means anything in your home dir:
 
-    $ fsevents_to_vm start ~/projects
+    $ fsevents_to_vm start ~/projects --ssh-identity-file ~/.docker/machine/machines/dinghy/id_rsa --ssh-ip $(dinghy ip)
 
 ## Known Limitations
 
