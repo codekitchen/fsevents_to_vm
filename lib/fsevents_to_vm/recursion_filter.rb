@@ -1,7 +1,9 @@
 module FseventsToVm
   class RecursionFilter
     attr_reader :recent_events
-    
+
+    PURGE_CUTOFF = 10
+
     def initialize
       @recent_events = {}
     end
@@ -20,7 +22,7 @@ module FseventsToVm
     private
 
     def purge_old_events!
-      cutoff = Time.now - 30
+      cutoff = Time.now - PURGE_CUTOFF
       @recent_events.reject! { |path, event| event.event_time < cutoff }
     end
   end

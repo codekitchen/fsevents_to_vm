@@ -10,8 +10,14 @@ module FseventsToVm
       @username = username
     end
 
+
     def event(event)
-      ssh.exec!("touch -m -c -t #{event.mtime} #{Shellwords.escape event.path}".force_encoding(Encoding::BINARY))
+      command = "touch -m -c -t #{event.mtime} #{Shellwords.escape event.path}"
+      if event.event_type == :modified
+        command = "echo -n '' >> #{Shellwords.escape event.path} && " + command
+      end
+
+      ssh.exec!("#{command} ".force_encoding(Encoding::BINARY))
     rescue IOError, SystemCallError, Net::SSH::Exception => e
       $stderr.puts "Error sending event: #{e.class}: #{e}"
       $stderr.puts "\t#{e.backtrace.join("\n\t")}"

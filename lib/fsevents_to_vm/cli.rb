@@ -25,7 +25,7 @@ module FseventsToVm
         next if path_filter.ignore?(event)
         next if recursion_filter.ignore?(event)
         if debug
-          puts "touching #{event.mtime}:#{event.path}"
+          puts "simulating #{event.event_type}:#{event.mtime}:#{event.path}"
         end
         forwarder.event(event)
       end

@@ -8,9 +8,9 @@ module FseventsToVm
     end
 
     def run
-      @fs.watch(@listen_dirs, file_events: true) do |files|
-        files.each do |file|
-          event = build_event(file)
+      @fs.watch(@listen_dirs, file_events: true) do |_, raw_events|
+        raw_events['events'].each do |raw_event|
+          event = build_event(raw_event)
           yield event if event
         end
       end
@@ -19,9 +19,11 @@ module FseventsToVm
 
     private
 
-    def build_event(filepath)
+    def build_event(raw_event)
+      filepath = raw_event['path']
+      event_type = raw_event['flags'].include?('ItemModified') ? :modified : :attrib
       mtime = Event.format_time(File.stat(filepath).mtime)
-      Event.new(filepath, mtime, Time.now)
+      Event.new(filepath, event_type, mtime, Time.now)
     rescue Errno::ENOENT
       # TODO: handling delete events is tricky due to race conditions with rapid
       # delete/create.
