@@ -11,7 +11,7 @@ module FseventsToVm
     end
 
     def event(event)
-      ssh.exec!("touch -m -c -t #{event.mtime} #{Shellwords.escape event.path}".force_encoding(Encoding::BINARY))
+      ssh.exec!("gtouch -m -c -d #{event.mtime} #{Shellwords.escape event.path}".force_encoding(Encoding::BINARY))
     rescue IOError, SystemCallError, Net::SSH::Exception => e
       $stderr.puts "Error sending event: #{e.class}: #{e}"
       $stderr.puts "\t#{e.backtrace.join("\n\t")}"

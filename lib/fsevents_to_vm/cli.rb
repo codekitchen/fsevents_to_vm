@@ -7,10 +7,13 @@ module FseventsToVm
     option :ssh_identity_file, type: :string
     option :ssh_ip, type: :string
     option :ssh_username, type: :string, default: 'docker'
+
     desc "start PATH",
-      "Watch PATH and forward filesystem touch events to the Dinghy VM."
+         "Watch PATH and forward filesystem touch events to the Dinghy VM."
     def start(listen_dir = ENV['HOME'])
       debug = options[:debug]
+
+      FseventsToVm::DinghyInstallGnuTouch.new(debug).run
 
       watcher = FseventsToVm::Watch.new(listen_dir)
       path_filter = FseventsToVm::PathFilter.new

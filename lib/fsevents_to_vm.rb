@@ -1,5 +1,6 @@
 require "fsevents_to_vm/version"
 
+require 'fsevents_to_vm/dinghy_install_gnu_touch'
 require 'fsevents_to_vm/event'
 require 'fsevents_to_vm/watch'
 require 'fsevents_to_vm/path_filter'
