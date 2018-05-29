@@ -30,7 +30,7 @@ module FseventsToVm
         if debug
           puts "touching #{event.mtime}:#{event.path}"
         end
-        forwarder.event(event)
+        forwarder.emit!(event)
       end
     end
   end
