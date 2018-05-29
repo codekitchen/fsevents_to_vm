@@ -5,7 +5,7 @@ module FseventsToVm
     INSTALL_SCRIPT =
       File.join(__dir__, '..', '..', 'exe', 'dinghy_install_gnu_touch.sh')
 
-    CHECK_COMMAND = 'dinghy ssh gtouch --version'
+    CHECK_COMMAND = 'dinghy ssh gtouch --version | grep "GNU coreutils"'
 
     def initialize(debug = false)
       @debug = debug
@@ -36,7 +36,7 @@ module FseventsToVm
         Open3.capture2e(CHECK_COMMAND)
       end
 
-      puts output.lines.map { |line| "++ #{line}" }.join if @debug
+      puts output if @debug
       puts "Already installed." if status.success? && @debug
       puts "Not installed." if !status.success? && @debug
 

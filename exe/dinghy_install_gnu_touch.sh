@@ -12,8 +12,8 @@ set -ex
 # directory, it must be under the directory tree exported via Dinghy's
 # NFS server into the VM.
 HOST_NFS_DIR="${DINGHY_HOST_MOUNT_DIR:-${HOME}}"
+mkdir -pv "${HOST_NFS_DIR}/tmp"
 HOST_TMP_DIR=$(mktemp -d "${HOST_NFS_DIR}/tmp/dinghy_tmp.XXXXXXXX")
-mkdir -pv ${HOST_TMP_DIR}
 
 # Copy 'touch' from a Ubuntu container to host
 docker run -v ${HOST_TMP_DIR}:/host_tmp_dir ubuntu:16.04 \
