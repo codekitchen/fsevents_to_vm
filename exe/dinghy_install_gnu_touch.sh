@@ -16,8 +16,9 @@ mkdir -pv "${HOST_NFS_DIR}/tmp"
 HOST_TMP_DIR=$(mktemp -d "${HOST_NFS_DIR}/tmp/dinghy_tmp.XXXXXXXX")
 
 # Copy 'touch' from a Linux Docker container to the host
-docker run -v ${HOST_TMP_DIR}:/host_tmp_dir codekitchen/dinghy-http-proxy:2.5 \
-       /bin/cp /bin/touch /host_tmp_dir/
+CONTAINER_ID=$(docker create codekitchen/dinghy-http-proxy:2.5)
+docker cp ${CONTAINER_ID}:/bin/touch ${HOST_TMP_DIR}/touch
+docker rm ${CONTAINER_ID}
 
 # Copy 'touch' from host to the Dinghy VM as 'gtouch'
 dinghy ssh sudo cp ${HOST_TMP_DIR}/touch /bin/gtouch
