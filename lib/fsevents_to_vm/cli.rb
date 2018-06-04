@@ -13,12 +13,13 @@ module FseventsToVm
     def start(listen_dir = ENV['HOME'])
       debug = options[:debug]
 
-      FseventsToVm::DinghyInstallGnuTouch.new(debug).run
+      ssh_exec = FseventsToVm::SshExec.new(options[:ssh_identity_file], options[:ssh_ip], options[:ssh_username])
+      FseventsToVm::SshInstallGnuTouch.new(ssh_exec, debug).install!
 
       watcher = FseventsToVm::Watch.new(listen_dir)
       path_filter = FseventsToVm::PathFilter.new
       recursion_filter = FseventsToVm::RecursionFilter.new
-      forwarder = FseventsToVm::SshEmit.new(options[:ssh_identity_file], options[:ssh_ip], options[:ssh_username])
+      forwarder = FseventsToVm::SshEmit.new(ssh_exec)
 
       if debug
         puts "Watching #{listen_dir} and forwarding events to Dinghy VM..."

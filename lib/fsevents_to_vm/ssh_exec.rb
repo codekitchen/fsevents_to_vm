@@ -10,12 +10,11 @@ module FseventsToVm
       @username = username
     end
 
-    def exec!(command:, description: nil)
-      raise ArgumentError, "required command" if command.nil? || command.empty?
-      result = ssh.exec!(command)
-      raise(SshCommandError, result) if !result.nil? && !result.empty?
-    rescue IOError, SystemCallError, Net::SSH::Exception, SshCommandError => e
-      $stderr.puts "Error #{description || "running command `#{command}`"}"
+    def exec!(command)
+      raise ArgumentError, "Missing command" if command.nil? || command.empty?
+      ssh.exec!(command)
+    rescue IOError, SystemCallError, Net::SSH::Exception => e
+      $stderr.puts "Error running command `#{command}`"
       $stderr.puts "#{e.class}: #{e}"
       $stderr.puts "\t#{e.backtrace.join("\n\t")}"
       disconnect!
@@ -35,10 +34,8 @@ module FseventsToVm
     end
 
     def disconnect!
+      @ssh.close unless @ssh.nil? || @ssh.closed?
       @ssh = nil
-    end
-
-    class SshCommandError < StandardError
     end
   end
 end
