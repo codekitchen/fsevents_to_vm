@@ -52,15 +52,5 @@ module FseventsToVm
 
       success
     end
-
-    private
-
-    def without_bundler_env
-      if defined?(Bundler)
-        Bundler.with_clean_env { yield }
-      else
-        yield
-      end
-    end
   end
 end
