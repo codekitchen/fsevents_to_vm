@@ -1,35 +1,15 @@
-require 'net/ssh'
-require 'shellwords'
-require 'tempfile'
-
 module FseventsToVm
   class SshEmit
-    def initialize(identity_file, ip, username)
-      @identity_file = identity_file
-      @ip = ip
-      @username = username
+    def initialize(ssh_exec)
+      @ssh_exec = ssh_exec
     end
 
-    def event(event)
-      ssh.exec!("touch -m -c -t #{event.mtime} #{Shellwords.escape event.path}".force_encoding(Encoding::BINARY))
-    rescue IOError, SystemCallError, Net::SSH::Exception => e
-      $stderr.puts "Error sending event: #{e.class}: #{e}"
-      $stderr.puts "\t#{e.backtrace.join("\n\t")}"
-      disconnect!
-    end
+    def emit!(event)
+      command =
+        "gtouch -m -c -d #{event.mtime} #{Shellwords.escape event.path}".
+        force_encoding(Encoding::BINARY)
 
-    protected
-
-    def ssh
-      @ssh ||= Net::SSH.start(@ip, @username,
-        config: false,
-        keys: [@identity_file],
-        keys_only: true,
-        paranoid: false)
-    end
-
-    def disconnect!
-      @ssh = nil
+      @ssh_exec.exec!(command)
     end
   end
 end
