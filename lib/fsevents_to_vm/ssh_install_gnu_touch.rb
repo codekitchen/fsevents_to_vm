@@ -6,7 +6,7 @@ module FseventsToVm
 
     INSTALL_COMMAND =
       'CONTAINER_ID=$(docker create codekitchen/dinghy-http-proxy:2.5) '\
-      '&& sudo docker cp ${CONTAINER_ID}:/bin/touch /bin/gtouch ' \
+      '&& sudo docker cp -L ${CONTAINER_ID}:/bin/touch /bin/gtouch ' \
       '&& docker rm ${CONTAINER_ID} && echo "Installed GNU touch"'
 
     INSTALL_COMMAND_SUCCEEDED = /Installed GNU touch/
