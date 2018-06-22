@@ -14,9 +14,7 @@ module FseventsToVm
       raise ArgumentError, "Missing command" if command.nil? || command.empty?
       ssh.exec!(command)
     rescue IOError, SystemCallError, Net::SSH::Exception => e
-      $stderr.puts "Error running command `#{command}`"
-      $stderr.puts "#{e.class}: #{e}"
-      $stderr.puts "\t#{e.backtrace.join("\n\t")}"
+      log_error("Error running command #{command.inspect}", e)
       disconnect!
     end
 
@@ -34,8 +32,18 @@ module FseventsToVm
     end
 
     def disconnect!
-      @ssh.close unless @ssh.nil? || @ssh.closed?
+      begin
+        @ssh.close unless @ssh.nil? || @ssh.closed?
+      rescue => e
+        log_error("Error closing the SSH connection", e)
+      end
       @ssh = nil
+    end
+
+    def log_error(msg, e)
+      $stderr.puts msg
+      $stderr.puts "#{e.class}: #{e}"
+      $stderr.puts "\t#{e.backtrace.join("\n\t")}"
     end
   end
 end
