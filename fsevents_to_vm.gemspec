@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rb-fsevent", "~> 0.9.5"
+  spec.add_dependency "rb-inotify", "~> 0.9.5"
   spec.add_dependency "thor", "~> 0.19.1"
   spec.add_dependency "net-ssh", "~> 2.9.2"
 

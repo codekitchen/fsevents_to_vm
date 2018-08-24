@@ -1,14 +1,12 @@
-require 'rb-fsevent'
-
 module FseventsToVm
   class Watch
-    def initialize(*listen_dirs)
-      @listen_dirs = listen_dirs
-      @fs = FSEvent.new
+    def initialize(listen_dir)
+      @listen_dir = listen_dir
+      @fs = FsEventProxy.new(@listen_dir)
     end
 
     def run
-      @fs.watch(@listen_dirs, file_events: true) do |files|
+      @fs.watch do |files|
         files.each do |file|
           event = build_event(file)
           yield event if event

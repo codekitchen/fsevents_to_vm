@@ -1,6 +1,7 @@
 require 'fsevents_to_vm/version'
 
 require 'fsevents_to_vm/event'
+require 'fsevents_to_vm/fs_event_proxy'
 require 'fsevents_to_vm/watch'
 require 'fsevents_to_vm/path_filter'
 require 'fsevents_to_vm/recursion_filter'
